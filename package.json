@@ -4,11 +4,12 @@
   "private": true,
   "scripts": {
     "dev": "next dev",
-    "build": "next build",
+    "build": "prisma generate && next build",
     "start": "next start",
     "lint": "eslint",
     "demo": "tsx scripts/rogue-agent.ts",
-    "test": "vitest run src/lib/rules-engine.test.ts"
+    "test": "vitest run src/lib/rules-engine.test.ts",
+    "postinstall": "prisma generate"
   },
   "dependencies": {
     "@prisma/client": "^5.22.0",
