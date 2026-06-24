@@ -1,0 +1,338 @@
+[
+  {
+    "step": "STEP 1 – Normal",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "XRPUSDT",
+      "side": "LONG",
+      "quantity": 400,
+      "priceUsd": 0.55
+    },
+    "response": {
+      "decision": "ALLOWED",
+      "ruleFired": null,
+      "reason": "Passed all checks.",
+      "orderEventId": "cmqp1m0990001xvmb79hge2kd"
+    },
+    "timestamp": "2026-06-22T09:58:33.236Z"
+  },
+  {
+    "step": "STEP 1 – Normal",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "LINKUSDT",
+      "side": "SHORT",
+      "quantity": 20,
+      "priceUsd": 14
+    },
+    "response": {
+      "decision": "ALLOWED",
+      "ruleFired": null,
+      "reason": "Passed all checks.",
+      "orderEventId": "cmqp1m82r0005xvmbqcc7sjzi"
+    },
+    "timestamp": "2026-06-22T09:58:43.150Z"
+  },
+  {
+    "step": "STEP 1 – Normal",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "ADAUSDT",
+      "side": "LONG",
+      "quantity": 800,
+      "priceUsd": 0.45
+    },
+    "response": {
+      "decision": "ALLOWED",
+      "ruleFired": null,
+      "reason": "Passed all checks.",
+      "orderEventId": "cmqp1meyd0009xvmbfnw2b7f5"
+    },
+    "timestamp": "2026-06-22T09:58:52.204Z"
+  },
+  {
+    "step": "STEP 2 – Oversized",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "SOLUSDT",
+      "side": "LONG",
+      "quantity": 50,
+      "priceUsd": 150
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "MAX_POSITION_SIZE",
+      "reason": "Order size $7500.00 exceeds maximum allowed position size $1000.00.",
+      "orderEventId": "cmqp1mm96000dxvmbqvo5g5xf"
+    },
+    "timestamp": "2026-06-22T09:59:00.839Z"
+  },
+  {
+    "step": "STEP 3 – Close at loss",
+    "request": {
+      "positionId": "cmqoig19k000drhpjvqv84980",
+      "exitPriceUsd": 0.4675
+    },
+    "response": {
+      "id": "cmqoig19k000drhpjvqv84980",
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "XRPUSDT",
+      "side": "LONG",
+      "entryPrice": 0.55,
+      "quantity": 400,
+      "sizeUsd": 220,
+      "openedAt": "2026-06-22T01:02:00.296Z",
+      "closedAt": "2026-06-22T09:59:13.878Z",
+      "pnlUsd": -33.00000000000001,
+      "status": "CLOSED"
+    },
+    "timestamp": "2026-06-22T09:59:14.595Z"
+  },
+  {
+    "step": "STEP 3 – Post-loss order",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "BNBUSDT",
+      "side": "LONG",
+      "quantity": 1,
+      "priceUsd": 400
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "COOLDOWN_AFTER_LOSS",
+      "reason": "Loss cooldown active. 15 minute(s) remaining.",
+      "orderEventId": "cmqp1n0zl000fxvmbu2p2ryqp"
+    },
+    "timestamp": "2026-06-22T09:59:19.924Z"
+  },
+  {
+    "step": "STEP 4 – Fill correlation group",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "BTCUSDT",
+      "side": "LONG",
+      "quantity": 0.001,
+      "priceUsd": 30000
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 5 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1n7pf000hxvmb2ax8a79w"
+    },
+    "timestamp": "2026-06-22T09:59:28.603Z"
+  },
+  {
+    "step": "STEP 4 – Fill correlation group",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "ETHUSDT",
+      "side": "LONG",
+      "quantity": 0.001,
+      "priceUsd": 30000
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 5 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1ncma000jxvmb52nl96fc"
+    },
+    "timestamp": "2026-06-22T09:59:34.968Z"
+  },
+  {
+    "step": "STEP 4 – Fill correlation group",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "SOLUSDT",
+      "side": "LONG",
+      "quantity": 0.001,
+      "priceUsd": 30000
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 6 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1ngy8000lxvmb88pdcok0"
+    },
+    "timestamp": "2026-06-22T09:59:40.636Z"
+  },
+  {
+    "step": "STEP 4 – Correlation breach",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "BTCUSDT",
+      "side": "LONG",
+      "quantity": 0.001,
+      "priceUsd": 30000
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 6 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1nlcm000nxvmb485wzsk9"
+    },
+    "timestamp": "2026-06-22T09:59:47.024Z"
+  },
+  {
+    "step": "STEP 5 – Rate limit burst 1",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "DOGEUSDT",
+      "side": "LONG",
+      "quantity": 1000,
+      "priceUsd": 0.15,
+      "burstIndex": 1
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 6 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1nrcj000pxvmbpk25z0zc"
+    },
+    "timestamp": "2026-06-22T09:59:54.198Z"
+  },
+  {
+    "step": "STEP 5 – Rate limit burst 2",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "DOGEUSDT",
+      "side": "LONG",
+      "quantity": 1000,
+      "priceUsd": 0.15,
+      "burstIndex": 2
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 7 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1numh000rxvmbwkro3k40"
+    },
+    "timestamp": "2026-06-22T09:59:58.341Z"
+  },
+  {
+    "step": "STEP 5 – Rate limit burst 3",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "DOGEUSDT",
+      "side": "LONG",
+      "quantity": 1000,
+      "priceUsd": 0.15,
+      "burstIndex": 3
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 8 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1ny4z000txvmbwfnxbh84"
+    },
+    "timestamp": "2026-06-22T10:00:03.284Z"
+  },
+  {
+    "step": "STEP 5 – Rate limit burst 4",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "DOGEUSDT",
+      "side": "LONG",
+      "quantity": 1000,
+      "priceUsd": 0.15,
+      "burstIndex": 4
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 8 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1o1ra000vxvmbp4eejq5y"
+    },
+    "timestamp": "2026-06-22T10:00:07.597Z"
+  },
+  {
+    "step": "STEP 5 – Rate limit burst 5",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "DOGEUSDT",
+      "side": "LONG",
+      "quantity": 1000,
+      "priceUsd": 0.15,
+      "burstIndex": 5
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 9 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1o53z000xxvmbbut98s4f"
+    },
+    "timestamp": "2026-06-22T10:00:11.901Z"
+  },
+  {
+    "step": "STEP 5 – Rate limit burst 6",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "DOGEUSDT",
+      "side": "LONG",
+      "quantity": 1000,
+      "priceUsd": 0.15,
+      "burstIndex": 6
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 10 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1o83u000zxvmbjmnt60ln"
+    },
+    "timestamp": "2026-06-22T10:00:15.880Z"
+  },
+  {
+    "step": "STEP 5 – Rate limit burst 7",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "DOGEUSDT",
+      "side": "LONG",
+      "quantity": 1000,
+      "priceUsd": 0.15,
+      "burstIndex": 7
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 11 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1ocxr0011xvmbamw95w17"
+    },
+    "timestamp": "2026-06-22T10:00:22.026Z"
+  },
+  {
+    "step": "STEP 5 – Rate limit burst 8",
+    "request": {
+      "agentId": "clv_rogue_agent_01",
+      "symbol": "DOGEUSDT",
+      "side": "LONG",
+      "quantity": 1000,
+      "priceUsd": 0.15,
+      "burstIndex": 8
+    },
+    "response": {
+      "decision": "BLOCKED",
+      "ruleFired": "RATE_LIMIT",
+      "reason": "Rate limit exceeded: 11 orders in the last minute (max: 5).",
+      "orderEventId": "cmqp1og0k0013xvmbjhd2us5k"
+    },
+    "timestamp": "2026-06-22T10:00:26.098Z"
+  },
+  {
+    "step": "FINAL STATS",
+    "request": {
+      "agentId": "clv_rogue_agent_01"
+    },
+    "response": {
+      "totalAttempted": 39,
+      "totalAllowed": 7,
+      "totalBlocked": 32,
+      "blockRateByRule": {
+        "MAX_POSITION_SIZE": 3,
+        "CORRELATION_LIMIT": 14,
+        "RATE_LIMIT": 14,
+        "COOLDOWN_AFTER_LOSS": 1
+      }
+    },
+    "timestamp": "2026-06-22T10:00:28.503Z"
+  }
+]

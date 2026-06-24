@@ -1,0 +1,78 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider  = "postgresql"
+  url       = env("DATABASE_URL")
+  directUrl = env("DIRECT_URL")
+}
+
+
+model Agent {
+  id          String   @id @default(cuid())
+  name        String
+  createdAt   DateTime @default(now())
+  positions   Position[]
+  orderEvents OrderEvent[]
+  ruleConfig  RuleConfig?
+}
+
+model RuleConfig {
+  id                     String   @id @default(cuid())
+  agentId                String   @unique
+  agent                  Agent    @relation(fields: [agentId], references: [id])
+  maxPositionSizeUsd     Float    @default(1000)
+  maxDrawdownPct         Float    @default(10)
+  maxCorrelatedPositions Int      @default(3)
+  cooldownAfterLossMin   Int      @default(15)
+  maxOrdersPerMinute     Int      @default(5)
+  correlationGroups      Json
+  updatedAt              DateTime @updatedAt
+}
+
+model Position {
+  id         String          @id @default(cuid())
+  agentId    String
+  agent      Agent           @relation(fields: [agentId], references: [id])
+  symbol     String
+  side       Side
+  entryPrice Float
+  quantity   Float
+  sizeUsd    Float
+  openedAt   DateTime        @default(now())
+  closedAt   DateTime?
+  pnlUsd     Float?
+  status     PositionStatus  @default(OPEN)
+}
+
+model OrderEvent {
+  id           String   @id @default(cuid())
+  agentId      String
+  agent        Agent    @relation(fields: [agentId], references: [id])
+  symbol     String
+  side         Side
+  requestedQty Float
+  requestedUsd Float
+  decision     Decision
+  ruleFired    String?
+  reason       String
+  createdAt    DateTime @default(now())
+  rawPayload   Json
+}
+
+enum Side {
+  LONG
+  SHORT
+}
+
+enum PositionStatus {
+  OPEN
+  CLOSED
+}
+
+enum Decision {
+  ALLOWED
+  BLOCKED
+}
+

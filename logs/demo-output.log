@@ -1,0 +1,71 @@
+nohup: ignoring input
+
+════════════════════════════════════════════════════════════════
+  🛡️  SentinelBoard — Rogue Agent Simulator
+════════════════════════════════════════════════════════════════
+
+Agent: rogue-agent-01 (id: clv_rogue_agent_01)
+Rules: maxSize=$1000 | maxDrawdown=10% | maxCorrelated=3 | cooldown=15min | rateLimit=15/min
+
+  step                           | side symbol      notional | decision rule                   | reason
+────────────────────────────────────────────────────────────────────────────────────────────────────────────────────────
+
+— STEP 1: Normal orders on uncorrelated symbols (expect ALLOWED) —
+[2026-06-22T10:14:27.662Z] 🚫 STEP 1 – Normal                | LONG XRPUSDT    $   220.00 | BLOCKED [CORRELATION_LIMIT]    | Maximum correlated positions for group PAYMENTS_L1 reached (3/3).
+[2026-06-22T10:14:33.326Z] ✅ STEP 1 – Normal                | SHORT LINKUSDT   $   280.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:14:40.415Z] ✅ STEP 1 – Normal                | LONG ADAUSDT    $   360.00 | ALLOWED [PASS]                 | Passed all checks.
+
+— STEP 2: Oversized order (expect BLOCKED — MAX_POSITION_SIZE) —
+[2026-06-22T10:14:48.130Z] 🚫 STEP 2 – Oversized             | LONG SOLUSDT    $  7500.00 | BLOCKED [MAX_POSITION_SIZE]    | Order size $7500.00 exceeds maximum allowed position size $1000.00.
+
+— STEP 3: Close position at a loss, then immediately re-enter (expect BLOCKED — COOLDOWN_AFTER_LOSS) —
+   Closing position cmqp25c7g006hxvmb402cw6r1 (symbol=LINKUSDT) at exit=$11.9000 (entry=$14)
+   ↳ Position closed | pnlUsd=42.0000 | status=CLOSED
+[2026-06-22T10:15:00.212Z] ✅ STEP 3 – Post-loss             | LONG BNBUSDT    $   400.00 | ALLOWED [PASS]                 | Passed all checks.
+   (Mocking passage of time: clearing cooldown for next steps...)
+
+— STEP 4: Fill correlation group then try one more (expect BLOCKED — CORRELATION_LIMIT) —
+   Currently open in BTC_CORRELATED: BTCUSDT, ETHUSDT (2/3)
+   Need to open 1 more to reach limit, then attempt a 4st
+[2026-06-22T10:15:11.201Z] ✅ STEP 4 – Fill corr[1/1]        | LONG SOLUSDT    $    30.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:15.391Z] ✅ STEP 4 – Corr breach           | LONG BTCUSDT    $    30.00 | ALLOWED [PASS]                 | Passed all checks.
+
+— STEP 5: 20 rapid-fire orders — limit is 15/min (expect later ones BLOCKED — RATE_LIMIT) —
+[2026-06-22T10:15:21.825Z] ✅ STEP 5 – Burst[1/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:24.622Z] ✅ STEP 5 – Burst[2/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:27.559Z] ✅ STEP 5 – Burst[3/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:30.426Z] ✅ STEP 5 – Burst[4/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:34.521Z] ✅ STEP 5 – Burst[5/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:37.999Z] ✅ STEP 5 – Burst[6/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:41.278Z] ✅ STEP 5 – Burst[7/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:44.062Z] ✅ STEP 5 – Burst[8/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:47.526Z] ✅ STEP 5 – Burst[9/20]           | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:51.210Z] ✅ STEP 5 – Burst[10/20]          | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:54.491Z] ✅ STEP 5 – Burst[11/20]          | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:15:57.559Z] ✅ STEP 5 – Burst[12/20]          | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:16:01.128Z] ✅ STEP 5 – Burst[13/20]          | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:16:04.833Z] ✅ STEP 5 – Burst[14/20]          | LONG DOGEUSDT   $   150.00 | ALLOWED [PASS]                 | Passed all checks.
+[2026-06-22T10:16:07.189Z] 🚫 STEP 5 – Burst[15/20]          | LONG DOGEUSDT   $   150.00 | BLOCKED [RATE_LIMIT]           | Rate limit exceeded: 15 orders in the last minute (max: 15).
+[2026-06-22T10:16:09.545Z] 🚫 STEP 5 – Burst[16/20]          | LONG DOGEUSDT   $   150.00 | BLOCKED [RATE_LIMIT]           | Rate limit exceeded: 16 orders in the last minute (max: 15).
+[2026-06-22T10:16:11.759Z] 🚫 STEP 5 – Burst[17/20]          | LONG DOGEUSDT   $   150.00 | BLOCKED [RATE_LIMIT]           | Rate limit exceeded: 17 orders in the last minute (max: 15).
+[2026-06-22T10:16:14.149Z] 🚫 STEP 5 – Burst[18/20]          | LONG DOGEUSDT   $   150.00 | BLOCKED [RATE_LIMIT]           | Rate limit exceeded: 18 orders in the last minute (max: 15).
+[2026-06-22T10:16:17.127Z] 🚫 STEP 5 – Burst[19/20]          | LONG DOGEUSDT   $   150.00 | BLOCKED [RATE_LIMIT]           | Rate limit exceeded: 18 orders in the last minute (max: 15).
+[2026-06-22T10:16:19.087Z] 🚫 STEP 5 – Burst[20/20]          | LONG DOGEUSDT   $   150.00 | BLOCKED [RATE_LIMIT]           | Rate limit exceeded: 19 orders in the last minute (max: 15).
+
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
+  📊  Final Stats (from GET /api/stats)
+──────────────────────────────────────────────────
+  Total attempted : 21
+  ✅ Allowed      : 15
+  🚫 Blocked      : 6
+  Math check      : 15 + 6 = 21 (== 21? ✅)
+
+  Blocks by rule:
+    RATE_LIMIT                6
+
+  Rule sum check  : 6 == totalBlocked 6? ✅
+
+  📁  Log written → /mnt/vm_storage/sanzo/Hackatons/Bitget Hackathon /sentinel-board/logs/demo-run-2026-06-22T10-14-24-937Z.json
+════════════════════════════════════════════════════════════════════════════════════════════════════════════════════════
+
