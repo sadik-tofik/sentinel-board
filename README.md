@@ -73,7 +73,7 @@ curl -X POST http://localhost:3000/api/orders \
 {
   "decision": "ALLOWED",
   "ruleFired": null,
-  "reason": "Order within all risk parameters.",
+  "reason": "Passed all checks.",
   "orderEventId": "evt_01abc..."
 }
 ```
@@ -96,7 +96,7 @@ curl -X POST http://localhost:3000/api/orders \
 {
   "decision": "BLOCKED",
   "ruleFired": "MAX_POSITION_SIZE",
-  "reason": "Order size 6500000.0 USD exceeds maximum allowed 1000.0 USD",
+  "reason": "Order size $6500000.00 exceeds maximum allowed position size $1000.00.",
   "orderEventId": "evt_02xyz..."
 }
 ```
